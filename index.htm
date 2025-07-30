@@ -85,7 +85,10 @@
 </head>
 
 <body>
-    <div class="rain-container" id="rainContainer"></div>
+
+    <audio id="bg-music" autoplay loop>
+        <source src="audio/musica.mp3" type="audio/mp3">
+    </audio>
     <!-- 🎥 VIDEO DE FONDO -->
     <video autoplay muted loop playsinline id="background-video">
         <source src="videos/vid.mp4" type="video/mp4" />
@@ -133,6 +136,21 @@
         }
 
         setInterval(createRainItem, 250);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById('bg-music');
+
+            function tryPlay() {
+                music.play().catch(() => {
+                    // Nada que hacer si falla
+                });
+                document.removeEventListener('click', tryPlay);
+                document.removeEventListener('touchstart', tryPlay);
+            }
+
+            document.addEventListener('click', tryPlay);
+            document.addEventListener('touchstart', tryPlay);
+        });
     </script>
 </body>
 
